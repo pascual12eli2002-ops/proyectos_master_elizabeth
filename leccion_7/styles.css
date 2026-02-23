@@ -1,0 +1,118 @@
+body {
+    background-color: #0f1123;
+    font-family: Arial, sans-serif;
+    color: white;
+    display: flex;
+    justify-content: center;
+    padding: 50px;
+}
+
+.container {
+    width: 400px;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #aaa;
+}
+
+.password-display {
+    background: #24253d;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.password-display span {
+    font-size: 18px;
+    color: #8affc1;
+}
+
+.password-display button {
+    background: none;
+    border: none;
+    color: #8affc1;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.card {
+    background: #24253d;
+    padding: 20px;
+}
+
+.length-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+input[type="range"] {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.options label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.strength {
+    background: #18192e;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.strength-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.bars {
+    display: flex;
+    gap: 5px;
+}
+
+.bar {
+    width: 8px;
+    height: 20px;
+    background: #444;
+}
+
+.generate {
+    width: 100%;
+    padding: 12px;
+    background: #8affc1;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.password-display input {
+    background: none;
+    border: none;
+    outline: none;
+    color: #8affc1;
+    font-size: 18px;
+    width: 100%;
+}
+
+.rules p {
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+.valid {
+    color: #8affc1;
+}
+
+.invalid {
+    color: red;
+}

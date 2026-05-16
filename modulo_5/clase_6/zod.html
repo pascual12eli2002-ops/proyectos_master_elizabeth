@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0" />
+
+  <title>Registro con Zod</title>
+
+  <!-- Librería Zod -->
+  <script src="https://cdn.jsdelivr.net/npm/zod@3.21.4/lib/index.umd.min.js"></script>
+
+  <style>
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      width: 350px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-sizing: border-box;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #007bff;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background: #0056b3;
+    }
+
+    #errors {
+      color: red;
+      margin-top: 15px;
+      font-size: 14px;
+    }
+
+    .success {
+      color: green;
+      font-weight: bold;
+      text-align: center;
+      margin-top: 15px;
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <h1>Registro de Usuario</h1>
+
+    <form id="registerForm">
+
+      <label for="name">Nombre:</label>
+      <input
+        type="text"
+        id="name"
+        placeholder="Ingresa tu nombre"
+      />
+
+      <label for="email">Correo Electrónico:</label>
+      <input
+        type="email"
+        id="email"
+        placeholder="ejemplo@email.com"
+      />
+
+      <label for="password">Contraseña:</label>
+      <input
+        type="password"
+        id="password"
+        placeholder="Mínimo 6 caracteres"
+      />
+
+      <button type="submit">
+        Registrarse
+      </button>
+
+    </form>
+
+    <p id="errors"></p>
+    <p id="successMessage"
+       class="success"></p>
+
+  </div>
+
+  <script>
+
+    // Importar Zod
+    const { z } = window.Zod;
+
+    // Esquema de validación
+    const registerSchema = z.object({
+
+      name: z
+        .string()
+        .min(3,
+          "El nombre debe tener al menos 3 caracteres."
+        )
+        .regex(
+          /^[A-Za-zÁÉÍÓÚáéíóúñÑ\s]+$/,
+          "El nombre solo debe contener letras."
+        ),
+
+      email: z
+        .string()
+        .email(
+          "Ingresa un correo electrónico válido."
+        ),
+
+      password: z
+        .string()
+        .min(
+          6,
+          "La contraseña debe tener mínimo 6 caracteres."
+        )
+        .regex(
+          /[A-Z]/,
+          "La contraseña debe incluir al menos una letra mayúscula."
+        )
+        .regex(
+          /[0-9]/,
+          "La contraseña debe incluir al menos un número."
+        )
+
+    });
+
+    // Elementos
+    const form =
+      document.getElementById("registerForm");
+
+    const errors =
+      document.getElementById("errors");
+
+    const successMessage =
+      document.getElementById("successMessage");
+
+    // Evento submit
+    form.addEventListener("submit",
+      (event) => {
+
+      event.preventDefault();
+
+      // Limpiar mensajes
+      errors.textContent = "";
+      successMessage.textContent = "";
+
+      // Datos del formulario
+      const formData = {
+
+        name:
+          document.getElementById("name")
+          .value.trim(),
+
+        email:
+          document.getElementById("email")
+          .value.trim(),
+
+        password:
+          document.getElementById("password")
+          .value.trim()
+
+      };
+
+      // Validación segura
+      const result =
+        registerSchema.safeParse(formData);
+
+      // Mostrar errores
+      if (!result.success) {
+
+        errors.innerHTML =
+          result.error.errors
+          .map(error =>
+            `• ${error.message}`)
+          .join("<br>");
+
+        return;
+      }
+
+      // Éxito
+      successMessage.textContent =
+        "✅ Registro exitoso.";
+
+      form.reset();
+
+    });
+
+  </script>
+
+</body>
+</html>

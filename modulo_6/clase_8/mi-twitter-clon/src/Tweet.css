@@ -1,0 +1,17 @@
+.tweet {
+  padding: 15px 20px;
+  border-bottom: 1px solid #e1e8ed;
+}
+
+.tweet p {
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+.tweet button {
+  border: none;
+  background: transparent;
+  color: #e0245e;
+  cursor: pointer;
+  font-size: 15px;
+}
